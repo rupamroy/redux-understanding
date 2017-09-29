@@ -5,7 +5,7 @@
 /tmp
 
 # dependencies
-!/node_modules
+/node_modules
 
 # IDEs and editors
 /.idea
@@ -28,6 +28,7 @@
 /coverage/*
 /libpeerconnection.log
 npm-debug.log
+yarn-error.log
 testem.log
 /typings
 
