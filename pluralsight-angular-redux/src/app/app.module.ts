@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { CourseComponent } from './courses/course.component';
 import { CourseService } from './courses/course.service';
 import { CourseListComponent } from './courses/course-list.component';
-
+import { CourseActions } from "./courses/course.actions";
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryStoryService } from '../api/in-memory-story.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,8 @@ import { ToastComponent, ToastService } from './blocks/toast';
 import { SpinnerComponent, SpinnerService } from './blocks/spinner';
 import { ModalComponent, ModalService } from './blocks/modal';
 import { ExceptionService } from './blocks/exception.service';
+import { NgReduxModule, NgRedux } from 'ng2-redux';
+import { store, IAppState } from "./store";
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { ExceptionService } from './blocks/exception.service';
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryStoryService, { delay: 500 }),
-    AppRoutingModule
+    AppRoutingModule,
+    NgReduxModule
   ],
   providers: [
     CourseService,
@@ -44,7 +47,14 @@ import { ExceptionService } from './blocks/exception.service';
     SpinnerService,
     ModalService,
     ExceptionService,
+    CourseActions
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(ngRedux: NgRedux<IAppState>){
+    // With ngRedux the store can be injected with other angular services which is the main advantage.
+    // Also the store can now be injects into angular components
+    ngRedux.provideStore(store); // This acts as a bridge between angular and redux
+  }
+}
