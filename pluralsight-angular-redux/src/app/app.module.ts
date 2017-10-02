@@ -21,7 +21,6 @@ import { ExceptionService } from './blocks/exception.service';
 import { NgReduxModule, NgRedux } from 'ng2-redux';
 import { store, IAppState } from "./store";
 
-
 @NgModule({
   declarations: [
     AppComponent,
